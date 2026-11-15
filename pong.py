@@ -470,12 +470,18 @@ def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool)
     - Optionally, randomize the vertical velocity slightly (e.g., sign or magnitude) for variability.
     """
 
-    # TODO: put your code!!!!
+    x = center_x
+    y = center_y
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate/modify it when adding your code
-    return center_x, center_y, vx0, vy0
+    if to_right:
+        vx = vx0
+    else:
+        vx = -vx0
 
+    # Randomise the vertical direction so every serve is a bit different.
+    vy = random.choice((-vy0, vy0))
+
+    return x, y, vx, vy
 
 
 def compute_ai_direction(ball_y: int, paddle_y: int, paddle_h: int) -> int:
