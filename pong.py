@@ -289,11 +289,19 @@ def move_paddle(current_y: int, direction: int, speed: int, height: int, paddle_
     Take into account that the paddle must always stay fully visible on screen.
     That is when it reaches the limits (up or down) it stays there, so consider paddle_h and height here.
     """
-    # TODO: put your code!!!!
-    
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
-    return current_y
+    new_y = current_y + direction * speed
+
+    # The top position of the paddle cannot go above 0 and its bottom edge cannot go beyond "height".
+    # Therefore, we must limit new_y to stay within these bounds.
+    min_y = 0
+    max_y = height - paddle_h
+
+    if new_y < min_y:
+        new_y = min_y
+    elif new_y > max_y:
+        new_y = max_y
+
+    return new_y
 
 
 def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
