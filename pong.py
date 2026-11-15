@@ -318,11 +318,10 @@ def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
     but in the next 2 functions (collide_ball_walls and collide_ball_paddle)
     """
 
-    # TODO: put your code!!!!
+    new_x = x + vx
+    new_y = y + vy
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
-    return x, y
+    return new_x, new_y
 
 
 def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int, height: int) -> tuple[int, int, int, int]:
