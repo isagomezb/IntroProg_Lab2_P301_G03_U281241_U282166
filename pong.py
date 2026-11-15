@@ -403,11 +403,37 @@ def collide_ball_paddle(x: int, y: int, vx: int, vy: int, paddle_x: int, paddle_
     - The collision box ignores the ball's circular shape for simplicity,
       which is sufficient for this game.
     """
-    # TODO: put your code!!!!
     hit = False
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
+    # Approximate the round ball with a square box centred on (x, y).
+    ball_left = x - radius
+    ball_right = x + radius
+    ball_top = y - radius
+    ball_bottom = y + radius
+
+    # AABB: the two boxes overlap only if they intersect on BOTH axes.
+    paddle_left = paddle_x
+    paddle_right = paddle_x + paddle_w
+    paddle_top = paddle_y
+    paddle_bottom = paddle_y + paddle_h
+
+    overlaps = (ball_left < paddle_right and
+                ball_right > paddle_left and
+                ball_top < paddle_bottom and
+                ball_bottom > paddle_top)
+
+    if overlaps:
+        hit = True
+
+        # vx tells us which face the ball was heading towards. Place it just
+        # outside that face so it cannot overlap again on the next frame.
+        if vx > 0:
+            x = paddle_left - radius
+        else:
+            x = paddle_right + radius
+
+        vx = -vx
+
     return x, y, vx, vy, hit
 
 def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool) -> tuple[int, int, int, int]:
