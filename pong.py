@@ -342,10 +342,15 @@ def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int
         When hitting a horizontal wall, change the sign of vy
         For precisely detecting collisions, you might need to consider the ball radius
     """
-    # TODO: put your code!!!!
+    # The ball's y is its CENTRE, so its edges are y - radius and y + radius.
+    if y - radius < 0:
+        # Put the ball just inside the wall before sending it back.
+        y = radius
+        vy = -vy
+    elif y + radius > height:
+        y = height - radius
+        vy = -vy
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
     return x, y, vx, vy
 
 
