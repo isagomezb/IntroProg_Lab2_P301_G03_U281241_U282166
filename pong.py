@@ -109,11 +109,11 @@ def get_config() -> tuple[int, int, int, int, int]:
     # TODO: put your code!!!!
 
     if ask_yes_no("Vols canviar els paràmetres del joc?"): #demana a l'user si vol canviar els paràmetres  
-        paddle_height = read_int_in_range_w_default("Introdueix l'alçada de la paleta (60-160)", 60, 160)
-        paddle_speed = read_int_in_range_w_default("Introdueix la velocitat de la paleta (1-20)", 1, 20)
-        ball_x_speed = read_int_in_range_w_default("Introdueix la velocitat de la pilota en X (1-20)", 1, 20)
-        ball_y_speed = read_int_in_range_w_default("Introdueix la velocitat de la pilota en Y (1-20)", 1, 20)
-        ball_radius = read_int_in_range_w_default("Introdueix el radi de la pilota (5-30)", 5, 30)
+        paddle_height = read_int_in_range_w_default("Introdueix l'alçada de la paleta (60-160)", 60, 160, PADDLE_H) 
+        paddle_speed = read_int_in_range_w_default("Introdueix la velocitat de la paleta (1-20)", 1, 20, SPEED_PADDLE)
+        ball_x_speed = read_int_in_range_w_default("Introdueix la velocitat de la pilota en X (1-20)", 1, 20, SPEED_BALL_X)
+        ball_y_speed = read_int_in_range_w_default("Introdueix la velocitat de la pilota en Y (1-20)", 1, 20, SPEED_BALL_Y)
+        ball_radius = read_int_in_range_w_default("Introdueix el radi de la pilota (5-30)", 5, 30, BALL_RADIUS)
 
         return paddle_height, paddle_speed, ball_x_speed, ball_y_speed, ball_radius
     else:
