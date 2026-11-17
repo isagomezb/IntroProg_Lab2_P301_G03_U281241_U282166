@@ -67,7 +67,7 @@ KEY_UP_RIGHT = pygame.K_UP          # arrow UP
 KEY_DOWN_RIGHT = pygame.K_DOWN      # arrow DOWN
 
 # Play against machine (optional feature): set to True once compute_ai_direction() is implemented
-PLAY_AGAINST_MACHINE = False
+PLAY_AGAINST_MACHINE = True
 
 # ==============================================================================
 # Functions to complete by the students : configuration/setup before game starts
@@ -276,19 +276,19 @@ def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: i
     """
     
     # TODO: put your code!!!!
-while True:
-    text = input(prompt + ": ")
-    if text == "":  # què passa quan el user fa enter directament sense escriure res.
-        return default_val      
+    while True:
+        text = input(prompt + ": ")
+        if text == "":  # què passa quan el user fa enter directament sense escriure res.
+            return default_val      
 
-    try:
-        valor = int(text)
-        if low <= valor <= high:
-            return valor        
-        else:
-            print(f"Siusplau introdueix un enter entre {low} i {high}.")
-    except ValueError:
-        print("Valor invàlid. Siusplau, introdueix un enter vàlid.")
+        try:
+            valor = int(text)
+            if low <= valor <= high:
+                return valor        
+            else:
+                print(f"Siusplau introdueix un enter entre {low} i {high}.")
+        except ValueError:
+            print("Valor invàlid. Siusplau, introdueix un enter vàlid.")
 
 
 def ask_yes_no(prompt: str) -> bool:
@@ -572,10 +572,18 @@ def compute_ai_direction(ball_y: int, paddle_y: int, paddle_h: int) -> int:
     when the ball is aligned enough.
     """
     # TODO: put your code!!!!
+    paddle_center = paddle_y + paddle_h / 2
+    tolerance = 10
+
+    if ball_y < paddle_center - tolerance:
+        return -1  # Se mueve para arriba
+    elif ball_y > paddle_center + tolerance:
+        return 1   # Se mueve para abajo
+    else:
+        return 0   # Se queda quieto
 
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
-    return 0
 
 # =============================================
 # Checking KEYS UP/DOWN (given to the students)
