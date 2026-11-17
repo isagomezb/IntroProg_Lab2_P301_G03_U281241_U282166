@@ -269,6 +269,16 @@ def ask_yes_no(prompt: str) -> bool:
     - Print a short message (e.g. "Please answer y/n.") when the answer is invalid.
     - Return only after receiving a valid input; do not stop the program with errors.
     """
+#codi Neus 
+def ask_yes_no(prompt: str) -> bool:
+    while True:
+        resposta= input(prompt + " (yes or no): ").strip().lower()
+        if resposta == "y" or resposta == "yes":
+            return True
+        elif resposta == "n" or resposta == "no":
+            return False   
+        else:
+            print("Siusplau, respon amb y, yes, n o no.")
     # TODO: put your code!!!!
 
 # ================================
