@@ -216,10 +216,9 @@ def read_int_in_range(prompt: str, low: int, high: int) -> int:
     """
     
     while True:  
-    # Repeat until the user enters a valid value.
-
+        # Repeat until the user enters a valid value.
         try:
-            value = int(input(prompt + ": "))  # asks the user for an integer and converts it to int; valor is the variable containing the user's input
+            value = int(input(prompt + ": "))  # asks the user for an integer and converts it to int; value is the variable containing the user's input
             if low <= value <= high:
                 return value
             else:
