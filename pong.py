@@ -145,6 +145,13 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     """
 
     # TODO: put your code!!!!
+    if ask_yes_no("Vols canviar els colors del joc?"):
+        background_color = read_color("Introdueix el color de fons (background)")
+        foreground_color = read_color("Introdueix el color de primer pla (foreground)")
+        return background_color, foreground_color
+    else:
+        return BLACK, WHITE
+
 
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
