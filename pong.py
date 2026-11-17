@@ -182,6 +182,14 @@ def read_color(prompt: str) -> tuple[int, int, int]:
     # TODO: put your code!!!!
     # return r, g, b
 
+    print(prompt)  #ensenya quin element de color s'està configurant
+    #ara va demanant a l'user que introdueixi els valors de cada component RGB, utilitzant la funció read_int_in_range() per assegurar-se que els valors estiguin dins del rang correcte
+    r = read_int_in_range("Introdueix el component vermell(0-255)", 0, 255)
+    g = read_int_in_range("Introdueix el component verd(0-255)", 0, 255)
+    b = read_int_in_range("Introdueix el component blau(0-255)", 0, 255)
+    return r, g, b #retorna els valors com una tupla  
+
+
 def read_int_in_range(prompt: str, low: int, high: int) -> int:
     """Ask user for an integer within [low, high]. 
     Keeps asking until a valid value is entered.
