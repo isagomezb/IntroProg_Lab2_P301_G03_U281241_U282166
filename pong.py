@@ -204,6 +204,18 @@ def read_int_in_range(prompt: str, low: int, high: int) -> int:
     """
     
     # TODO: put your code!!!!
+    while True:  
+    #es repetirà fins que l'usuari introdueixi un valor vàlid
+
+        try:
+            valor = int(input(prompt + ": "))  #demana a l'usuari que introdueixi un enter i el converteix a int, valor és la variable que introdueix l'usuari
+            if low <= valor <= high:
+                return valor
+            else:
+                print(f"Please enter an enter entre {low} i {high}.")
+        except ValueError:
+            print("Valor invàlid. Siusplau, introdueix un enter vàlid.")
+
 
 def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: int) -> int:
     """ Advanced/alternate more user-friendly version of read_int_in_range().
