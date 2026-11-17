@@ -109,11 +109,11 @@ def get_config() -> tuple[int, int, int, int, int]:
     # TODO: put your code!!!!
 
     if ask_yes_no("Vols canviar els paràmetres del joc?"): #demana a l'user si vol canviar els paràmetres  
-        paddle_height = read_int_in_range("Introdueix l'alçada de la paleta (60-160)", 60, 160)
-        paddle_speed = read_int_in_range("Introdueix la velocitat de la paleta (1-20)", 1, 20)
-        ball_x_speed = read_int_in_range("Introdueix la velocitat de la pilota en X (1-20)", 1, 20)
-        ball_y_speed = read_int_in_range("Introdueix la velocitat de la pilota en Y (1-20)", 1, 20)
-        ball_radius = read_int_in_range("Introdueix el radi de la pilota (5-30)", 5, 30)
+        paddle_height = read_int_in_range_w_default("Introdueix l'alçada de la paleta (60-160)", 60, 160)
+        paddle_speed = read_int_in_range_w_default("Introdueix la velocitat de la paleta (1-20)", 1, 20)
+        ball_x_speed = read_int_in_range_w_default("Introdueix la velocitat de la pilota en X (1-20)", 1, 20)
+        ball_y_speed = read_int_in_range_w_default("Introdueix la velocitat de la pilota en Y (1-20)", 1, 20)
+        ball_radius = read_int_in_range_w_default("Introdueix el radi de la pilota (5-30)", 5, 30)
 
         return paddle_height, paddle_speed, ball_x_speed, ball_y_speed, ball_radius
     else:
@@ -122,7 +122,6 @@ def get_config() -> tuple[int, int, int, int, int]:
     # This line of code has been left for letting the full program work
     # It corresponds to the user answering NO to changing any default values 
     # You will need to eliminate it when adding your code
-    return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS 
 
 def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     """ Ask the user if they want to modify the game colors (background and foreground).
@@ -166,7 +165,6 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
 
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
-    return BLACK, WHITE
 
 def read_color(prompt: str) -> tuple[int, int, int]:
     """Ask the user to enter the three RGB components of a color with each component in [0,255].
@@ -278,6 +276,19 @@ def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: i
     """
     
     # TODO: put your code!!!!
+while True:
+    text = input(prompt + ": ")
+    if text == "":  # què passa quan el user fa enter directament sense escriure res.
+        return default_val      
+
+    try:
+        valor = int(text)
+        if low <= valor <= high:
+            return valor        
+        else:
+            print(f"Siusplau introdueix un enter entre {low} i {high}.")
+    except ValueError:
+        print("Valor invàlid. Siusplau, introdueix un enter vàlid.")
 
 
 def ask_yes_no(prompt: str) -> bool:
@@ -307,8 +318,7 @@ def ask_yes_no(prompt: str) -> bool:
     - Print a short message (e.g. "Please answer y/n.") when the answer is invalid.
     - Return only after receiving a valid input; do not stop the program with errors.
     """
-#codi Neus 
-def ask_yes_no(prompt: str) -> bool:  #demana a l'user una pregunta de si o no   
+  # TODO: put your code!!!!
     while True:
         resposta= input(prompt + " (yes or no): ").strip().lower()
         if resposta == "y" or resposta == "yes":
@@ -317,7 +327,7 @@ def ask_yes_no(prompt: str) -> bool:  #demana a l'user una pregunta de si o no
             return False   
         else:
             print("Siusplau, respon amb y, yes, n o no.")
-    # TODO: put your code!!!!
+   
 
 # ================================
 # Functions to complete: main game
