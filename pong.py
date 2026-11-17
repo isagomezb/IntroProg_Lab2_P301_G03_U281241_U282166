@@ -238,7 +238,7 @@ def read_int_in_range(prompt: str, low: int, high: int) -> int:
             if low <= valor <= high:
                 return valor
             else:
-                print(f"Please enter an enter entre {low} i {high}.")
+                print(f"Siusplau introdueix un enter entre {low} i {high}.")
         except ValueError:
             print("Valor invàlid. Siusplau, introdueix un enter vàlid.")
 
@@ -308,7 +308,7 @@ def ask_yes_no(prompt: str) -> bool:
     - Return only after receiving a valid input; do not stop the program with errors.
     """
 #codi Neus 
-def ask_yes_no(prompt: str) -> bool:
+def ask_yes_no(prompt: str) -> bool:  #demana a l'user una pregunta de si o no   
     while True:
         resposta= input(prompt + " (yes or no): ").strip().lower()
         if resposta == "y" or resposta == "yes":
