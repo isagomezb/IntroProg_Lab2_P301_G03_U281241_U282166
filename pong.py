@@ -108,6 +108,17 @@ def get_config() -> tuple[int, int, int, int, int]:
 
     # TODO: put your code!!!!
 
+    if ask_yes_no("Vols canviar els paràmetres del joc?"): #demana a l'user si vol canviar els paràmetres  
+        paddle_height = read_int_in_range("Introdueix l'alçada de la paleta (60-160)", 60, 160)
+        paddle_speed = read_int_in_range("Introdueix la velocitat de la paleta (1-20)", 1, 20)
+        ball_x_speed = read_int_in_range("Introdueix la velocitat de la pilota en X (1-20)", 1, 20)
+        ball_y_speed = read_int_in_range("Introdueix la velocitat de la pilota en Y (1-20)", 1, 20)
+        ball_radius = read_int_in_range("Introdueix el radi de la pilota (5-30)", 5, 30)
+
+        return paddle_height, paddle_speed, ball_x_speed, ball_y_speed, ball_radius
+    else:
+        return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS
+
     # This line of code has been left for letting the full program work
     # It corresponds to the user answering NO to changing any default values 
     # You will need to eliminate it when adding your code
