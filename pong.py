@@ -106,9 +106,7 @@ def get_config() -> tuple[int, int, int, int, int]:
     - Remember to maintain the same order of the returned elements.
     """
 
-    # TODO: put your code!!!!
-
-    if ask_yes_no("Vols canviar els paràmetres del joc?"): #demana a l'user si vol canviar els paràmetres  
+    if ask_yes_no("Vols canviar els paràmetres del joc?"): # asks the user whether they want to change the settings
         paddle_height = read_int_in_range_w_default("Introdueix l'alçada de la paleta (60-160)", 60, 160, PADDLE_H) 
         paddle_speed = read_int_in_range_w_default("Introdueix la velocitat de la paleta (1-20)", 1, 20, SPEED_PADDLE)
         ball_x_speed = read_int_in_range_w_default("Introdueix la velocitat de la pilota en X (1-20)", 1, 20, SPEED_BALL_X)
@@ -119,9 +117,6 @@ def get_config() -> tuple[int, int, int, int, int]:
     else:
         return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS
 
-    # This line of code has been left for letting the full program work
-    # It corresponds to the user answering NO to changing any default values 
-    # You will need to eliminate it when adding your code
 
 def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     """ Ask the user if they want to modify the game colors (background and foreground).
@@ -154,7 +149,6 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     - Keep the order of returned values consistent: first background, then foreground.
     """
 
-    # TODO: put your code!!!!
     if ask_yes_no("Vols canviar els colors del joc?"):
         background_color = read_color("Introdueix el color de fons (background)")
         foreground_color = read_color("Introdueix el color de primer pla (foreground)")
@@ -162,9 +156,6 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     else:
         return BLACK, WHITE
 
-
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
 
 def read_color(prompt: str) -> tuple[int, int, int]:
     """Ask the user to enter the three RGB components of a color with each component in [0,255].
@@ -195,15 +186,12 @@ def read_color(prompt: str) -> tuple[int, int, int]:
     - Keep the order (Red, then Green, then Blue).
     """ 
 
-    # TODO: put your code!!!!
-    # return r, g, b
-
-    print(prompt)  #ensenya quin element de color s'està configurant
-    #ara va demanant a l'user que introdueixi els valors de cada component RGB, utilitzant la funció read_int_in_range() per assegurar-se que els valors estiguin dins del rang correcte
+    print(prompt)  # displays which color component is being configured
+    # Ask the user to enter each RGB component, using read_int_in_range() to ensure the values are within the correct range.
     r = read_int_in_range("Introdueix el component vermell(0-255)", 0, 255)
     g = read_int_in_range("Introdueix el component verd(0-255)", 0, 255)
     b = read_int_in_range("Introdueix el component blau(0-255)", 0, 255)
-    return r, g, b #retorna els valors com una tupla  
+    return r, g, b # returns the values as a tuple
 
 
 def read_int_in_range(prompt: str, low: int, high: int) -> int:
@@ -227,14 +215,13 @@ def read_int_in_range(prompt: str, low: int, high: int) -> int:
     An integer value such that low <= value <= high.
     """
     
-    # TODO: put your code!!!!
     while True:  
-    #es repetirà fins que l'usuari introdueixi un valor vàlid
+    # Repeat until the user enters a valid value.
 
         try:
-            valor = int(input(prompt + ": "))  #demana a l'usuari que introdueixi un enter i el converteix a int, valor és la variable que introdueix l'usuari
-            if low <= valor <= high:
-                return valor
+            value = int(input(prompt + ": "))  # asks the user for an integer and converts it to int; valor is the variable containing the user's input
+            if low <= value <= high:
+                return value
             else:
                 print(f"Siusplau introdueix un enter entre {low} i {high}.")
         except ValueError:
@@ -274,17 +261,16 @@ def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: i
     int
         The integer entered by the user, or `default_val` if the user pressed ENTER.
     """
-    
-    # TODO: put your code!!!!
+
     while True:
         text = input(prompt + ": ")
-        if text == "":  # què passa quan el user fa enter directament sense escriure res.
+        if text == "":  # what happens when the user presses Enter without typing anything
             return default_val      
 
         try:
-            valor = int(text)
-            if low <= valor <= high:
-                return valor        
+            value = int(text)
+            if low <= value <= high:
+                return value        
             else:
                 print(f"Siusplau introdueix un enter entre {low} i {high}.")
         except ValueError:
@@ -318,12 +304,12 @@ def ask_yes_no(prompt: str) -> bool:
     - Print a short message (e.g. "Please answer y/n.") when the answer is invalid.
     - Return only after receiving a valid input; do not stop the program with errors.
     """
-  # TODO: put your code!!!!
+
     while True:
-        resposta= input(prompt + " (yes or no): ").strip().lower()
-        if resposta == "y" or resposta == "yes":
+        answer = input(prompt + " (yes or no): ").strip().lower()
+        if answer == "y" or answer == "yes":
             return True
-        elif resposta == "n" or resposta == "no":
+        elif answer == "n" or answer == "no":
             return False   
         else:
             print("Siusplau, respon amb y, yes, n o no.")
@@ -571,19 +557,17 @@ def compute_ai_direction(ball_y: int, paddle_y: int, paddle_h: int) -> int:
     You might want to use a small tolerance margin so the paddle doesn't “vibrate” 
     when the ball is aligned enough.
     """
-    # TODO: put your code!!!!
+
     paddle_center = paddle_y + paddle_h / 2
     tolerance = 10
 
     if ball_y < paddle_center - tolerance:
-        return -1  # Se mueve para arriba
+        return -1  # Moves up
     elif ball_y > paddle_center + tolerance:
-        return 1   # Se mueve para abajo
+        return 1   # Moves down
     else:
-        return 0   # Se queda quieto
+        return 0   # Stays still
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
 
 # =============================================
 # Checking KEYS UP/DOWN (given to the students)
