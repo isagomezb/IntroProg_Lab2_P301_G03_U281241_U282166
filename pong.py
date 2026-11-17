@@ -299,11 +299,19 @@ def move_paddle(current_y: int, direction: int, speed: int, height: int, paddle_
     Take into account that the paddle must always stay fully visible on screen.
     That is when it reaches the limits (up or down) it stays there, so consider paddle_h and height here.
     """
-    # TODO: put your code!!!!
-    
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
-    return current_y
+    new_y = current_y + direction * speed
+
+    # The top position of the paddle cannot go above 0 and its bottom edge cannot go beyond "height".
+    # Therefore, we must limit new_y to stay within these bounds.
+    min_y = 0
+    max_y = height - paddle_h
+
+    if new_y < min_y:
+        new_y = min_y
+    elif new_y > max_y:
+        new_y = max_y
+
+    return new_y
 
 
 def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
@@ -320,11 +328,10 @@ def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
     but in the next 2 functions (collide_ball_walls and collide_ball_paddle)
     """
 
-    # TODO: put your code!!!!
+    new_x = x + vx
+    new_y = y + vy
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
-    return x, y
+    return new_x, new_y
 
 
 def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int, height: int) -> tuple[int, int, int, int]:
@@ -345,10 +352,15 @@ def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int
         When hitting a horizontal wall, change the sign of vy
         For precisely detecting collisions, you might need to consider the ball radius
     """
-    # TODO: put your code!!!!
+    # The ball's y is its CENTRE, so its edges are y - radius and y + radius.
+    if y - radius < 0:
+        # Put the ball just inside the wall before sending it back.
+        y = radius
+        vy = -vy
+    elif y + radius > height:
+        y = height - radius
+        vy = -vy
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
     return x, y, vx, vy
 
 
@@ -401,11 +413,37 @@ def collide_ball_paddle(x: int, y: int, vx: int, vy: int, paddle_x: int, paddle_
     - The collision box ignores the ball's circular shape for simplicity,
       which is sufficient for this game.
     """
-    # TODO: put your code!!!!
     hit = False
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
+    # Approximate the round ball with a square box centred on (x, y).
+    ball_left = x - radius
+    ball_right = x + radius
+    ball_top = y - radius
+    ball_bottom = y + radius
+
+    # AABB: the two boxes overlap only if they intersect on BOTH axes.
+    paddle_left = paddle_x
+    paddle_right = paddle_x + paddle_w
+    paddle_top = paddle_y
+    paddle_bottom = paddle_y + paddle_h
+
+    overlaps = (ball_left < paddle_right and
+                ball_right > paddle_left and
+                ball_top < paddle_bottom and
+                ball_bottom > paddle_top)
+
+    if overlaps:
+        hit = True
+
+        # vx tells us which face the ball was heading towards. Place it just
+        # outside that face so it cannot overlap again on the next frame.
+        if vx > 0:
+            x = paddle_left - radius
+        else:
+            x = paddle_right + radius
+
+        vx = -vx
+
     return x, y, vx, vy, hit
 
 def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool) -> tuple[int, int, int, int]:
@@ -442,12 +480,18 @@ def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool)
     - Optionally, randomize the vertical velocity slightly (e.g., sign or magnitude) for variability.
     """
 
-    # TODO: put your code!!!!
+    x = center_x
+    y = center_y
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate/modify it when adding your code
-    return center_x, center_y, vx0, vy0
+    if to_right:
+        vx = vx0
+    else:
+        vx = -vx0
 
+    # Randomise the vertical direction so every serve is a bit different.
+    vy = random.choice((-vy0, vy0))
+
+    return x, y, vx, vy
 
 
 def compute_ai_direction(ball_y: int, paddle_y: int, paddle_h: int) -> int:
